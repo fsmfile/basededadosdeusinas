@@ -13,14 +13,24 @@
 > A tabela `bdt_tb_empreendimento` contém informações detalhadas sobre os empreendimentos, incluindo o nome completo, nome reduzido e identificadores de tipo de empreendimento.
 
 ## Fonte de Dados
-- Banco de dados SQL Inbound: **prd-inst-bi2.ons.org.br,2058**
-- Tabela principal: **bdt.tb_empreendimento**
-- Relacionamentos:
-  - **bdt.tb_empreendcontrato** (relacionado por `id_empreendimento`)
-  - **bdt.tb_contrato** (relacionado por `id_contrato`)
-  - **bdt.tb_usianeelvisaoons** (relacionado por `cod_chavevisaousions`)
-  - **bdt.tb_usianeel** (relacionado por `id_usianeel`)
-  - **bdt.tb_usianeelvig** (relacionado por `id_usianeel`)
+- **Banco de dados SQL Inbound**: prd-inst-bi2.ons.org.br,2058
+- **Tabela principal**: bdt.tb_empreendimento
+
+### Relacionamentos:
+1. **bdt.tb_empreendcontrato** (relacionado por `id_empreendimento`)
+   - Colunas expandidas: `id_contrato`
+   
+2. **bdt.tb_contrato** (relacionado por `id_contrato`)
+   - Colunas expandidas: `id_tipo_contrato`
+   
+3. **bdt.tb_usianeelvisaoons** (relacionado por `cod_chavevisaousions`)
+   - Colunas expandidas: `id_usianeel`
+   
+4. **bdt.tb_usianeel** (relacionado por `id_usianeel`)
+   - Colunas expandidas: `id_usianeel` (foi mantida após o relacionamento)
+
+5. **bdt.tb_usianeelvig** (relacionado por `id_usianeel`)
+   - Colunas expandidas: `cod_cegcompleto`
 
 ## Modelagem de dados
 ### Power Query
@@ -56,5 +66,4 @@ let
     #"Removido Vazio" = Table.SelectRows(#"Colunas Removidas3", each ([id_municipio_1] <> null))
 in
     #"Removido Vazio"
-
-``` Fim Power Query
+```
